@@ -63,9 +63,16 @@ PlayerHeadDrops is a lightweight yet powerful plugin for all server cores that a
 <summary>messages.yml (click to expand)</summary>
 
 ```yaml
-prefix: "<gray>[</gray><gradient:#FFD700:#FF6B6B>PHD</gradient><gray>]</gray> "
-announce: "<gradient:#ff0000:#ffff00>%player%</gradient> <gold>killed</gold> <gradient:#ff00ff:#00ffff>%killer%</gradient> <gray>and claimed their head!</gray>"
-give-success: "<gradient:#00ff00:#00ff88>Head</gradient> <gradient:#ffd700:#ff6b00>%player%</gradient> <gradient:#00ff00:#00ff88>given to</gradient> <gradient:#4ECDC4:#44B39D>%receiver%</gradient>"
+# All messages support MiniMessage: <gold>, <gradient:#ff0000:#00ff00>, <#RRGGBB>, <bold>, etc.
+prefix: "<gray>[</gray><gold>PHD</gold><gray>]</gray> "
+no-permission: "<red>You don't have permission to do this.</red>"
+reloaded: "<green>Configuration reloaded.</green>"
+help: "<newline><gold><bold>PlayerHeadDrops</bold></gold> <gray>v2.0.0</gray><newline><yellow>/phd reload</yellow> <gray>— reload configuration</gray><newline><yellow>/phd give <player> [receiver]</yellow> <gray>— give a player head</gray><newline><yellow>/phd help</yellow> <gray>— show this menu</gray>"
+give-usage: "<red>Usage: /phd give <player> [receiver]</red>"
+give-console: "<red>From console, specify receiver: /phd give <player> <receiver></red>"
+give-success: "<green>Head of <yellow>%player%</yellow> given to <yellow>%receiver%</yellow>.</green>"
+player-not-found: "<red>Player not found or offline.</red>"
+unknown: "<red>Unknown subcommand. See /phd help.</red>"
 ```
 
 </details>
@@ -78,54 +85,85 @@ give-success: "<gradient:#00ff00:#00ff88>Head</gradient> <gradient:#ffd700:#ff6b
 <summary>config.yml (click to expand)</summary>
 
 ```yaml
-# Player head drop chance (0.0 - 1.0)
-drop-chance: 0.5
+# ─────────────────────────────────────────
+#  PlayerHeadDrops v2.0.0  |  Author: Kasperoid
+# ─────────────────────────────────────────
 
-# One-time drop per player
+config-version: 2
+
+# ── Player heads ─────────────────────────────────────────────────────────────
+drop-chance: 1.0
 one-time-drop: false
-
-# Cooldown in seconds
-cooldown-seconds: 60
-
-# Only PvP drops
+cooldown-seconds: 0
 only-pvp: false
+drop-to-inventory: false
 
-# Mob heads
-mob-heads:
-  enabled: true
-  default-chance: 0.05
-  only-player-kill: true
-  chances:
-    ZOMBIE: 0.1
-    SKELETON: 0.1
-    CREEPER: 0.05
+# ── Anti-farm ────────────────────────────────────────────────────────────────
+anti-farm:
+  ignore-suicide: true
+  ignore-void: false
+  ignore-self-kill: true
 
-# Head customization
+# ── World restrictions ──────────────────────────────────────────────────────
+worlds:
+  mode: blacklist
+  list:
+    - world_the_lobby
+    - creative_world
+
+# ── Head name and lore ──────────────────────────────────────────────────────
 head:
   name-format: "%player%'s Head"
-  name-color: "yellow"
+  name-color: yellow
+  name-italic: false
   lore:
-    - "&7Obtained: %date%"
+    - "<gray>Killed by: <white>%killer%</white></gray>"
+    - "<gray>World: <white>%world%</white></gray>"
+    - "<dark_gray>%date% %time%</dark_gray>"
 
-# Economy rewards
-economy:
-  enabled: true
-  reward: 10.0
+# ── Mob heads ────────────────────────────────────────────────────────────────
+mob-heads:
+  enabled: false
+  default-chance: 0.05
+  only-player-kill: true
+  name-format: ""
+  chances:
+    ZOMBIE: 0.05
+    SKELETON: 0.05
+    CREEPER: 0.05
+    WITHER_SKELETON: 0.10
+    PIGLIN: 0.05
+    ENDER_DRAGON: 1.0
 
-# Announcements
+# ── Looting boost ────────────────────────────────────────────────────────────
+looting-boost:
+  enabled: false
+  per-level: 0.1
+
+# ── Permission boost ─────────────────────────────────────────────────────────
+permission-boost:
+  enabled: false
+  multiplier: 2.0
+
+# ── Announcements ────────────────────────────────────────────────────────────
 announce:
-  enabled: true
-  message: "<yellow>%player%'s head has dropped!</yellow>"
-  radius: 50
+  enabled: false
+  message: "<yellow>☠ %player%'s head has dropped!</yellow>"
+  radius: -1
 
-# Effects
+# ── Economy (requires Vault) ────────────────────────────────────────────────
+economy:
+  enabled: false
+  reward: 0.0
+
+# ── Effects ──────────────────────────────────────────────────────────────────
 effects:
   sound:
-    enabled: true
-    name: "entity.player.levelup"
+    enabled: false
+    name: entity.player.levelup
   particles:
-    enabled: true
-    name: "SOUL"
+    enabled: false
+    name: SOUL
 ```
 
 </details>

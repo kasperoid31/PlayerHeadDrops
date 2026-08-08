@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎯 PlayerHeadDrops
+![PlayerHeadDrops Banner](https://cdn.modrinth.com/data/cached_images/29ede4f851c97778af1524d460126b9b83a40852.png)
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1200&color=F7A855&center=true&vCenter=true&width=640&height=46&lines=Every+kill+has+a+price.;Every+head+has+a+story." alt="motto" />
 
